@@ -44,13 +44,13 @@ public class TeacherRestResource {
     /**
      * Handles the GET requests with a query parameter
      * in the path '/api/teachers?lastname='. The
-     * API provide {@link Teacher} objects in JSON format.
+     * API provides {@link Teacher} objects in JSON format.
      *
      * @param lastname the query parameter
      * @return a JSON object with the result for a successful
      * response.
      */
-    @Path("/")
+    @Path("")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTeacherByLastname(@QueryParam("lastname") String lastname) {
@@ -70,6 +70,14 @@ public class TeacherRestResource {
         }
     }
 
+    /**
+     * Handles GET requests with a path parameter
+     * in the path '/api/teachers/teacherId'. The API provides
+     * a JSON object with that teacherId.
+     *
+     * @param teacherId the path parameter
+     * @return a JSON object for success requests.
+     */
     @Path("/{teacherId}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -91,6 +99,14 @@ public class TeacherRestResource {
         }
     }
 
+    /**
+     * Handles POST requests in the path '/api/teachers'
+     * with a JSON object in the body for adding new teacher.
+     *
+     * @param dto     the {@link TeacherInsertDTO} for adding new teacher.
+     * @param uriInfo the information (URI path) of the referer that called that resource.
+     * @return a JSON object for success requests.
+     */
     @Path("/")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -125,6 +141,14 @@ public class TeacherRestResource {
 
     }
 
+    /**
+     * Handles DELETE requests with a path parameter
+     * in the path '/api/teachers/teacherId' where deletes a teacher
+     * from the database.
+     *
+     * @param teacherId the teacher's id.
+     * @return a JSON object with the information of the deleted teacher.
+     */
     @Path("/{teacherId}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
@@ -143,6 +167,14 @@ public class TeacherRestResource {
         }
     }
 
+    /**
+     * Handles requests with PUT HTTP method in the path
+     * '/api/teachers/teacherId' and updates a teacher.
+     *
+     * @param teacherId the id of the teacher in the database.
+     * @param dto       the new information of the teacher.
+     * @return a JSON object with the updated teacher.
+     */
     @Path("/{teacherId}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -176,6 +208,13 @@ public class TeacherRestResource {
         }
     }
 
+    /**
+     * This method maps a {@link Teacher} object to
+     * {@link TeacherReadOnlyDTO} object.\
+     *
+     * @param teacher a {@link Teacher} object.
+     * @return a {@link TeacherReadOnlyDTO} object.
+     */
     private TeacherReadOnlyDTO mapFrom(Teacher teacher) {
         return new TeacherReadOnlyDTO(teacher.getId(), teacher.getFirstname(), teacher.getLastname());
     }
